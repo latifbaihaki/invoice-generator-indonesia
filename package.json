@@ -1,0 +1,45 @@
+{
+  "name": "invoice-generator-indonesia",
+  "version": "1.0.0",
+  "description": "Generate professional invoices and tax invoices (faktur pajak) for Indonesia with PPN calculation, terbilang Rupiah, and multiple export formats",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && npm run build:esm",
+    "build:esm": "tsc --module ES2020 --outDir dist/esm",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "invoice",
+    "faktur-pajak",
+    "invoice-generator",
+    "indonesia",
+    "ppn",
+    "terbilang",
+    "rupiah",
+    "pdf",
+    "tax-invoice"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.27",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
