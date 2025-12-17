@@ -1,6 +1,6 @@
 # 📄 Invoice Generator Indonesia
 
-Library lengkap untuk membuat invoice dan faktur pajak Indonesia yang sesuai dengan standar perpajakan Indonesia. Dibuat khusus untuk memudahkan developer Indonesia dalam membuat dokumen invoice profesional dengan format yang benar.
+Library buat generate invoice dan faktur pajak Indonesia yang sesuai standar perpajakan. Cocok buat developer yang butuh bikin invoice profesional tanpa ribet.
 
 ## 📑 Daftar Isi
 
@@ -12,38 +12,39 @@ Library lengkap untuk membuat invoice dan faktur pajak Indonesia yang sesuai den
 - [Format Indonesia](#-format-indonesia)
 - [Customization](#-customization)
 - [Troubleshooting](#-troubleshooting)
-- [Demo & Testing](#-demo--testing)
 - [Contributing](#-contributing)
 - [License](#-license)
+
+Lihat juga contoh penggunaan di folder `examples/` untuk referensi lebih lengkap.
 
 ---
 
 ## ✨ Fitur Utama
 
-Library ini menyediakan berbagai fitur lengkap untuk membuat invoice profesional:
+Yang bisa kamu lakukan dengan library ini:
 
-- **📋 Invoice Standar** - Generate invoice profesional dengan semua elemen wajib seperti nomor invoice, tanggal, identitas penjual/pembeli, item barang/jasa, subtotal, diskon, PPN, dan total
-- **🧾 Faktur Pajak** - Generate faktur pajak sesuai regulasi perpajakan Indonesia dengan NSFP, DPP, dan PPN wajib
-- **💰 Terbilang Rupiah** - Otomatis mengkonversi angka menjadi terbilang dalam bahasa Indonesia (contoh: 11.433.000 → "Sebelas Juta Empat Ratus Tiga Puluh Tiga Ribu Rupiah")
+- **📋 Invoice Standar** - Bikin invoice profesional lengkap dengan semua elemen penting
+- **🧾 Faktur Pajak** - Generate faktur pajak sesuai regulasi dengan NSFP, DPP, dan PPN
+- **💰 Terbilang Rupiah** - Otomatis convert angka jadi terbilang (contoh: 11.433.000 jadi "Sebelas Juta Empat Ratus Tiga Puluh Tiga Ribu Rupiah")
 - **🇮🇩 Format Indonesia** - Format Rupiah, tanggal, dan NPWP sesuai standar Indonesia
-- **🧮 Kalkulasi Otomatis** - Hitung PPN 11%, diskon, DPP, dan total secara otomatis tanpa perlu manual calculation
-- **📤 Multiple Export** - Export invoice ke berbagai format: PDF, HTML, PNG, dan SVG
-- **💻 TypeScript Support** - Full type definitions untuk development experience yang lebih baik
-- **🌐 Browser & Node.js** - Bisa digunakan di browser dan Node.js (dengan DOM untuk export)
+- **🧮 Kalkulasi Otomatis** - Hitung PPN 11%, diskon, DPP, dan total otomatis, gak perlu hitung manual
+- **📤 Multiple Export** - Export ke PDF, HTML, PNG, atau SVG
+- **💻 TypeScript Support** - Full type definitions, jadi lebih enak pas coding
+- **🌐 Browser & Node.js** - Bisa dipake di browser atau Node.js (untuk export butuh browser)
 
 ---
 
 ## 📦 Instalasi
 
-Pastikan Node.js sudah terinstall di komputer Anda (versi 16 atau lebih tinggi direkomendasikan).
+Pastikan Node.js udah terinstall (versi 16 ke atas lebih bagus).
 
-Install library menggunakan npm:
+Install pake npm:
 
 ```bash
 npm install invoice-generator-indonesia
 ```
 
-Atau jika menggunakan yarn:
+Atau kalo pake yarn:
 
 ```bash
 yarn add invoice-generator-indonesia
@@ -53,9 +54,9 @@ yarn add invoice-generator-indonesia
 
 ## 🚀 Quick Start
 
-### Membuat Invoice Standar
+### Bikin Invoice Standar
 
-Berikut contoh sederhana untuk membuat invoice standar:
+Ini contoh sederhana buat bikin invoice:
 
 ```javascript
 import { InvoiceGenerator } from 'invoice-generator-indonesia';
@@ -118,13 +119,13 @@ const invoiceData = {
 // Generate HTML invoice
 const html = await generator.generate(invoiceData);
 
-// Export sebagai PDF (hanya di browser)
+// Export jadi PDF (cuma bisa di browser)
 await generator.exportAsPDF(html, 'invoice.pdf');
 ```
 
-### Membuat Faktur Pajak
+### Bikin Faktur Pajak
 
-Untuk membuat faktur pajak, gunakan method `generateTaxInvoice()`:
+Kalo butuh faktur pajak, pake method `generateTaxInvoice()`:
 
 ```javascript
 const taxInvoiceData = {
@@ -153,14 +154,14 @@ const taxInvoiceData = {
     }
   ],
   discount: 1000000,
-  downPayment: 2000000, // Uang muka yang telah diterima
+  downPayment: 2000000, // Uang muka yang udah diterima
   ppnRate: 11 // PPN wajib 11% untuk faktur pajak
 };
 
 // Generate faktur pajak
 const html = await generator.generateTaxInvoice(taxInvoiceData);
 
-// Export sebagai PDF
+// Export jadi PDF
 await generator.exportAsPDF(html, 'faktur-pajak.pdf');
 ```
 
@@ -170,34 +171,34 @@ await generator.exportAsPDF(html, 'faktur-pajak.pdf');
 
 ### Invoice Standar
 
-Invoice standar yang dihasilkan mencakup elemen-elemen berikut:
+Invoice standar yang dihasilkan punya elemen-elemen berikut:
 
-1. **Header "INVOICE"** - Header utama invoice
-2. **Nomor Invoice** - Nomor unik untuk setiap invoice
-3. **Tanggal Invoice dan Jatuh Tempo** - Tanggal penerbitan dan batas waktu pembayaran
+1. **Header "INVOICE"** - Header utama
+2. **Nomor Invoice** - Nomor unik buat setiap invoice
+3. **Tanggal Invoice dan Jatuh Tempo** - Tanggal bikin dan deadline pembayaran
 4. **Identitas Penjual** - Nama, alamat lengkap, telepon, email, dan NPWP
 5. **Identitas Pembeli** - Nama, alamat lengkap, telepon, email, dan NPWP (opsional)
 6. **Tabel Item** - Daftar barang/jasa dengan kolom: No, Deskripsi, Qty, Harga Satuan, dan Total
 7. **Subtotal** - Total sebelum diskon dan pajak
 8. **Diskon** - Diskon global (opsional, bisa dalam Rupiah atau persentase)
-9. **PPN 11%** - Pajak Pertambahan Nilai (opsional, bisa di-toggle on/off)
+9. **PPN 11%** - Pajak Pertambahan Nilai (opsional, bisa di-toggle)
 10. **Total Keseluruhan** - Total akhir yang harus dibayar
 11. **Terbilang** - Total dalam bentuk terbilang Rupiah (contoh: "Dua Puluh Tiga Juta Rupiah")
-12. **Instruksi Pembayaran** - Informasi rekening bank dan metode pembayaran yang diterima
-13. **Catatan Tambahan** - Informasi tambahan jika diperlukan
+12. **Instruksi Pembayaran** - Info rekening bank dan metode pembayaran
+13. **Catatan Tambahan** - Info tambahan kalo perlu
 
 ### Faktur Pajak
 
-Faktur pajak mencakup semua elemen invoice standar, ditambah:
+Faktur pajak punya semua elemen invoice standar, plus:
 
-1. **Header "FAKTUR PAJAK"** - Header khusus untuk faktur pajak
-2. **Kode dan Nomor Seri Faktur Pajak (NSFP)** - 17 digit sesuai format Direktorat Jenderal Pajak
+1. **Header "FAKTUR PAJAK"** - Header khusus faktur pajak
+2. **Kode dan Nomor Seri Faktur Pajak (NSFP)** - 17 digit sesuai format DJP
 3. **Informasi PKP** - Pengusaha Kena Pajak (penjual)
 4. **DPP (Dasar Pengenaan Pajak)** - Dihitung otomatis: Harga Jual - Potongan Harga - Uang Muka
-5. **Uang Muka yang Telah Diterima** - Jika ada pembayaran uang muka sebelumnya
+5. **Uang Muka yang Telah Diterima** - Kalo ada pembayaran uang muka sebelumnya
 6. **Potongan Harga** - Diskon yang diberikan
 7. **PPN Wajib (11%)** - PPN wajib dikenakan untuk faktur pajak
-8. **PPnBM** - Pajak Penjualan atas Barang Mewah (jika ada)
+8. **PPnBM** - Pajak Penjualan atas Barang Mewah (kalo ada)
 
 ### API Reference
 
@@ -209,7 +210,7 @@ Faktur pajak mencakup semua elemen invoice standar, ditambah:
 const generator = new InvoiceGenerator();
 ```
 
-Membuat instance baru dari InvoiceGenerator. Tidak memerlukan parameter apapun.
+Bikin instance baru dari InvoiceGenerator. Gak perlu parameter apapun.
 
 ##### Methods Utama
 
@@ -244,11 +245,11 @@ Generate faktur pajak dalam format HTML.
 
 #### `exportAsPDF(htmlString, filename?, options?)`
 
-Export invoice sebagai file PDF. **Hanya berfungsi di browser.**
+Export invoice jadi file PDF. **Cuma bisa di browser.**
 
 **Parameter:**
 - `htmlString: string` - HTML string dari invoice (hasil dari `generate()` atau `generateTaxInvoice()`)
-- `filename?: string` - Nama file untuk export (default: 'invoice.pdf')
+- `filename?: string` - Nama file (default: 'invoice.pdf')
 - `options?: { pageSize?: 'a4' | 'letter', orientation?: 'portrait' | 'landscape' }` - Opsi untuk PDF
 
 **Return:** `Promise<void>`
@@ -263,7 +264,7 @@ await generator.exportAsPDF(html, 'invoice.pdf', {
 
 #### `exportAsHTML(htmlString, filename?)`
 
-Export invoice sebagai file HTML. **Hanya berfungsi di browser.**
+Export invoice jadi file HTML. **Cuma bisa di browser.**
 
 **Parameter:**
 - `htmlString: string` - HTML string dari invoice
@@ -273,7 +274,7 @@ Export invoice sebagai file HTML. **Hanya berfungsi di browser.**
 
 #### `exportAsPNG(htmlString, filename?, options?)`
 
-Export invoice sebagai file PNG. **Hanya berfungsi di browser.**
+Export invoice jadi file PNG. **Cuma bisa di browser.**
 
 **Parameter:**
 - `htmlString: string` - HTML string dari invoice
@@ -284,7 +285,7 @@ Export invoice sebagai file PNG. **Hanya berfungsi di browser.**
 
 #### `exportAsSVG(htmlString, filename?)`
 
-Export invoice sebagai file SVG. **Hanya berfungsi di browser.**
+Export invoice jadi file SVG. **Cuma bisa di browser.**
 
 **Parameter:**
 - `htmlString: string` - HTML string dari invoice
@@ -296,7 +297,7 @@ Export invoice sebagai file SVG. **Hanya berfungsi di browser.**
 
 #### `terbilang(amount: number): string`
 
-Konversi angka ke terbilang Rupiah dalam bahasa Indonesia.
+Convert angka jadi terbilang Rupiah dalam bahasa Indonesia.
 
 **Contoh:**
 ```javascript
@@ -309,11 +310,11 @@ generator.terbilang(1000000);
 
 #### `formatRupiah(amount: number, includeDecimals?: boolean): string`
 
-Format angka ke format Rupiah Indonesia standar.
+Format angka jadi format Rupiah Indonesia standar.
 
 **Parameter:**
 - `amount: number` - Jumlah uang dalam Rupiah
-- `includeDecimals?: boolean` - Apakah include desimal? (default: false)
+- `includeDecimals?: boolean` - Include desimal? (default: false)
 
 **Contoh:**
 ```javascript
@@ -326,7 +327,7 @@ generator.formatRupiah(1234567.89, true);
 
 #### `formatTanggal(date: Date, format?: 'long' | 'short' | 'medium'): string`
 
-Format tanggal ke format Indonesia.
+Format tanggal jadi format Indonesia.
 
 **Parameter:**
 - `date: Date` - Date object
@@ -348,7 +349,7 @@ generator.formatTanggal(tanggal, 'medium');
 
 #### `formatNPWP(npwp: string): string`
 
-Format NPWP ke format standar Indonesia (XX.XXX.XXX.X-XXX.XXX).
+Format NPWP jadi format standar Indonesia (XX.XXX.XXX.X-XXX.XXX).
 
 **Contoh:**
 ```javascript
@@ -356,7 +357,7 @@ generator.formatNPWP('012345678901000');
 // Output: "01.234.567.8-901.000"
 
 generator.formatNPWP('01.234.567.8-901.000');
-// Output: "01.234.567.8-901.000" (sudah diformat)
+// Output: "01.234.567.8-901.000" (udah diformat)
 ```
 
 ### Type Definitions
@@ -368,14 +369,14 @@ interface InvoiceData {
   invoiceNumber: string;           // Wajib - Nomor invoice unik
   invoiceDate: Date;               // Wajib - Tanggal invoice
   dueDate?: Date;                  // Opsional - Tanggal jatuh tempo
-  seller: SellerInfo;              // Wajib - Informasi penjual
-  buyer: BuyerInfo;                // Wajib - Informasi pembeli
+  seller: SellerInfo;              // Wajib - Info penjual
+  buyer: BuyerInfo;                // Wajib - Info pembeli
   items: InvoiceItem[];            // Wajib - Daftar item barang/jasa
   discount?: number;               // Opsional - Diskon global
-  discountIsPercentage?: boolean;  // Opsional - Apakah diskon dalam persentase? (default: false)
+  discountIsPercentage?: boolean;  // Opsional - Diskon dalam persentase? (default: false)
   ppnRate?: number;                // Opsional - Tarif PPN (default: 11)
-  includePPN?: boolean;            // Opsional - Apakah include PPN? (default: true)
-  paymentInfo?: PaymentInfo;       // Opsional - Informasi pembayaran
+  includePPN?: boolean;            // Opsional - Include PPN? (default: true)
+  paymentInfo?: PaymentInfo;       // Opsional - Info pembayaran
   notes?: string;                  // Opsional - Catatan tambahan
   additionalFees?: Array<{         // Opsional - Biaya tambahan
     name: string;
@@ -389,9 +390,9 @@ interface InvoiceData {
 ```typescript
 interface TaxInvoiceData extends InvoiceData {
   nsfp?: string;                   // Kode dan Nomor Seri Faktur Pajak (17 digit)
-  downPayment?: number;            // Uang muka yang telah diterima
-  ppnbm?: number;                  // PPnBM (jika ada)
-  ppnbmRate?: number;              // Tarif PPnBM (jika ada)
+  downPayment?: number;            // Uang muka yang udah diterima
+  ppnbm?: number;                  // PPnBM (kalo ada)
+  ppnbmRate?: number;              // Tarif PPnBM (kalo ada)
   itemCodes?: string[];            // Kode barang/jasa sesuai e-Faktur
 }
 ```
@@ -404,7 +405,7 @@ interface InvoiceItem {
   quantity: number;                // Wajib - Kuantitas
   unitPrice: number;               // Wajib - Harga satuan (dalam Rupiah)
   discount?: number;               // Opsional - Diskon per item
-  discountIsPercentage?: boolean;  // Opsional - Apakah diskon dalam persentase?
+  discountIsPercentage?: boolean;  // Opsional - Diskon dalam persentase?
   unit?: string;                   // Opsional - Satuan (pcs, kg, jam, dll)
 }
 ```
@@ -430,7 +431,7 @@ interface SellerInfo {
 ```typescript
 interface InvoiceOptions {
   format?: 'html' | 'pdf' | 'png' | 'svg';
-  customCSS?: string;              // CSS kustom untuk styling
+  customCSS?: string;              // CSS kustom buat styling
   templateStyle?: 'default' | 'modern' | 'minimal';
   language?: 'id' | 'en';
   showTerbilang?: boolean;         // default: true
@@ -446,7 +447,7 @@ interface InvoiceOptions {
 
 ### Node.js
 
-Di Node.js, Anda bisa generate HTML invoice dan menyimpannya atau menggunakan library lain untuk convert ke PDF:
+Di Node.js, kamu bisa generate HTML invoice terus simpan atau pake library lain buat convert ke PDF:
 
 ```javascript
 const { InvoiceGenerator } = require('invoice-generator-indonesia');
@@ -474,12 +475,12 @@ const invoiceData = {
 };
 
 const html = await generator.generate(invoiceData);
-// html adalah string HTML, bisa disimpan ke file atau digunakan dengan puppeteer untuk convert ke PDF
+// html adalah string HTML, bisa disimpan ke file atau pake puppeteer buat convert ke PDF
 ```
 
 ### React
 
-Berikut contoh penggunaan di React:
+Contoh pake di React:
 
 ```tsx
 import React, { useState } from 'react';
@@ -536,7 +537,7 @@ function InvoiceComponent() {
 
 ### Vanilla JavaScript (Browser)
 
-Untuk penggunaan di browser dengan vanilla JavaScript:
+Kalo pake vanilla JavaScript di browser:
 
 ```html
 <!DOCTYPE html>
@@ -594,11 +595,11 @@ Untuk penggunaan di browser dengan vanilla JavaScript:
 
 ## 📝 Format Indonesia
 
-Library ini dirancang khusus untuk format Indonesia, jadi semua format sudah sesuai dengan standar yang berlaku di Indonesia.
+Library ini dirancang khusus buat format Indonesia, jadi semua format udah sesuai standar yang berlaku.
 
 ### Format Rupiah
 
-Format Rupiah menggunakan standar Indonesia:
+Format Rupiah pake standar Indonesia:
 - **Separator ribuan**: titik (.)
 - **Separator desimal**: koma (,)
 - **Contoh**: Rp 1.000.000,00
@@ -614,11 +615,11 @@ Format tanggal Indonesia yang didukung:
 
 Format NPWP standar Indonesia: **XX.XXX.XXX.X-XXX.XXX**
 - **Contoh**: 01.234.567.8-901.000
-- Library akan otomatis memformat NPWP yang diinput tanpa format
+- Library bakal otomatis format NPWP yang diinput tanpa format
 
 ### Terbilang Rupiah
 
-Library mendukung terbilang untuk angka 0 hingga 999 triliun:
+Library support terbilang buat angka 0 sampai 999 triliun:
 - **Contoh**: 11.433.000 → "Sebelas Juta Empat Ratus Tiga Puluh Tiga Ribu Rupiah"
 - **Contoh**: 1.000.000 → "Satu Juta Rupiah"
 - **Contoh**: 0 → "Nol Rupiah"
@@ -626,12 +627,12 @@ Library mendukung terbilang untuk angka 0 hingga 999 triliun:
 ### PPN (Pajak Pertambahan Nilai)
 
 - **Default rate**: 11% (tarif terkini di Indonesia)
-- Bisa di-customize melalui parameter `ppnRate`
-- Bisa di-toggle menggunakan `includePPN` (default: true)
+- Bisa di-customize lewat parameter `ppnRate`
+- Bisa di-toggle pake `includePPN` (default: true)
 
 ### Faktur Pajak
 
-Untuk faktur pajak, pastikan:
+Buat faktur pajak, pastikan:
 1. **NSFP** (Nomor Seri Faktur Pajak) sesuai format DJP (17 digit)
 2. **NPWP penjual dan pembeli** wajib diisi
 3. **DPP** dihitung otomatis: Harga Jual - Potongan Harga - Uang Muka
@@ -643,7 +644,7 @@ Untuk faktur pajak, pastikan:
 
 ### Custom CSS
 
-Anda bisa menambahkan custom CSS untuk styling invoice sesuai kebutuhan:
+Kamu bisa tambahin custom CSS buat styling invoice sesuai kebutuhan:
 
 ```javascript
 const html = await generator.generate(invoiceData, {
@@ -666,7 +667,7 @@ const html = await generator.generate(invoiceData, {
 
 ### Template Style
 
-Saat ini tersedia template style default. Template style lainnya (modern, minimal) akan ditambahkan di versi selanjutnya.
+Saat ini tersedia template style default. Template style lainnya (modern, minimal) bakal ditambahin di versi selanjutnya.
 
 ---
 
@@ -674,65 +675,41 @@ Saat ini tersedia template style default. Template style lainnya (modern, minima
 
 ### Export tidak berfungsi di Node.js
 
-Export ke PDF/PNG/SVG memerlukan DOM (Document Object Model), jadi hanya berfungsi di browser. Untuk Node.js, ada beberapa solusi:
+Export ke PDF/PNG/SVG butuh DOM (Document Object Model), jadi cuma bisa di browser. Buat Node.js, ada beberapa solusi:
 
-- Gunakan `generate()` untuk mendapatkan HTML string, lalu gunakan library seperti `puppeteer` untuk convert ke PDF
-- Atau gunakan service seperti API untuk convert HTML ke PDF
+- Pake `generate()` buat dapetin HTML string, terus pake library kayak `puppeteer` buat convert ke PDF
+- Atau pake service kayak API buat convert HTML ke PDF
 
 ### Logo tidak muncul
 
-Jika logo tidak muncul di invoice:
+Kalo logo gak muncul di invoice:
 - Pastikan logo URL accessible dan CORS-enabled
-- Untuk local file, gunakan data URI atau pastikan file accessible dari browser
+- Buat local file, pake data URI atau pastikan file accessible dari browser
 - Format yang didukung: URL (http/https) atau data URI (data:image/png;base64,...)
 
 ### Format tidak sesuai ekspektasi
 
-Jika format invoice tidak sesuai yang diharapkan:
-- Pastikan menggunakan format data yang benar sesuai type definitions
-- Check browser console untuk error messages
+Kalo format invoice gak sesuai yang diharapkan:
+- Pastikan pake format data yang benar sesuai type definitions
+- Cek browser console buat liat error messages
 - Pastikan semua required fields terisi dengan benar
 
 ### Module tidak ditemukan di browser
 
-Jika menggunakan ES modules di browser:
-- Pastikan path import benar (gunakan `dist/esm/index.js`)
-- Pastikan server HTTP berjalan (tidak bisa menggunakan `file://`)
-- Pastikan project sudah di-build dengan `npm run build`
-
----
-
-## 🧪 Demo & Testing
-
-Untuk melihat semua fitur library ini secara langsung, Anda bisa menjalankan demo:
-
-1. Pastikan project sudah di-build:
-   ```bash
-   npm run build
-   ```
-
-2. Jalankan demo server:
-   ```bash
-   npm run test:web
-   ```
-
-3. Buka browser dan akses: `http://localhost:8080/demo/index.html`
-
-Di halaman demo, Anda bisa:
-- Generate invoice standar dan faktur pajak
-- Test semua utility functions (terbilang, format Rupiah, dll)
-- Test kalkulasi (subtotal, diskon, PPN, DPP)
-- Export ke berbagai format (PDF, HTML, PNG, SVG)
+Kalo pake ES modules di browser:
+- Pastikan path import benar (pake `dist/esm/index.js`)
+- Pastikan server HTTP berjalan (gak bisa pake `file://`)
+- Pastikan project udah di-build dengan `npm run build`
 
 ---
 
 ## 🤝 Contributing
 
-Kontribusi sangat diterima! Jika Anda ingin berkontribusi:
+Kontribusi sangat diterima! Kalo kamu mau berkontribusi:
 
 1. Fork repository ini
 2. Buat feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan Anda (`git commit -m 'Add some AmazingFeature'`)
+3. Commit perubahan kamu (`git commit -m 'Add some AmazingFeature'`)
 4. Push ke branch (`git push origin feature/AmazingFeature`)
 5. Buka Pull Request
 
@@ -740,21 +717,21 @@ Kontribusi sangat diterima! Jika Anda ingin berkontribusi:
 
 ## 📝 License
 
-Library ini menggunakan **MIT License**, jadi Anda bebas menggunakan library ini untuk project personal maupun komersial.
+Library ini pake **MIT License**, jadi kamu bebas pake library ini buat project personal maupun komersial.
 
 ---
 
 ## 🙏 Acknowledgments
 
 Library ini dibuat dengan menggunakan:
-- [jsPDF](https://www.npmjs.com/package/jspdf) - Untuk generate PDF
-- [html2canvas](https://www.npmjs.com/package/html2canvas) - Untuk convert HTML ke image
+- [jsPDF](https://www.npmjs.com/package/jspdf) - Buat generate PDF
+- [html2canvas](https://www.npmjs.com/package/html2canvas) - Buat convert HTML ke image
 
 ---
 
 ## 📞 Support
 
-Jika ada pertanyaan, masalah, atau saran, silakan buat issue di repository ini. Kami akan dengan senang hati membantu!
+Kalo ada pertanyaan, masalah, atau saran, silakan buat issue di repository ini. Kita bakal bantu dengan senang hati!
 
 ---
 
